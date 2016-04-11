@@ -536,29 +536,6 @@ public class EppicParams {
 	}
 	
 	public void checkConfigFileInput() throws EppicException {
-		
-		if (!isInputAFile()) {
-			
-			if (atomCachePath!=null && ! new File(atomCachePath).isDirectory()) {
-				throw new EppicException(null, "ATOM_CACHE_PATH wasn't set to a valid directory."
-						+ " For -i option to work with PDB codes as input, you must set ATOM_CACHE_PATH to "
-						+ "a directory where the mmCIF files will be cached with same layout as PDB ftp."
-						+ " You can also set it through environment variable PDB_DIR. ", true);
-			}
-			
-			Map<String,String> env = System.getenv();
-
-			if( env.containsKey(UserConfiguration.PDB_DIR) && !env.get(UserConfiguration.PDB_DIR).trim().isEmpty()) {
-				LOGGER.info("Detected PDB_DIR environment variable with dir {}", env.get(UserConfiguration.PDB_DIR));
-			} else {
-
-				if (atomCachePath==null || ! new File(atomCachePath).isDirectory()) {
-					throw new EppicException(null,
-							"To be able to use PDB codes as input with -i option, a valid ATOM_CACHE_PATH must be set in config file, or through environment variable PDB_DIR. " +
-							"It must contain the PDB mmCIF gzip file repository in same divided layout as PDB ftp.", true);
-				}
-			}
-		}
 
 		if (isDoEvolScoring()) {
 			if (blastDbDir==null || ! new File(blastDbDir).isDirectory()) {
